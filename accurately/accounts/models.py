@@ -11,9 +11,6 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=200, blank=False)
     last_name = models.CharField(max_length=200, blank=False)
     email = models.EmailField(blank=False)
-
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     GPA = models.FloatField(max_length=10.0, default=0.0)
     dob = models.DateField(null=True)
     state = models.CharField(max_length=20, null=True)
