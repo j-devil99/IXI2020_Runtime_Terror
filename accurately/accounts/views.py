@@ -3,4 +3,4 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 
 def login(request):
-    return HttpResponse('<html><body>Login</body></html>')
+    return render(request, 'accounts/login.html')
