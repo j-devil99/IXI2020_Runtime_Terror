@@ -8,15 +8,17 @@ from .choices import QUALIFICATION_CHOICES, GENDER_CHOICES, CATEGORY_CHOICES, DO
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_organization = models.BooleanField(default=False)
-    name = models.CharField(max_length=200, blank=False)
+    first_name = models.CharField(max_length=200, blank=False)
+    last_name = models.CharField(max_length=200, blank=False)
     email = models.EmailField(blank=False)
 
 class Student(models.Model):
-    GPA = models.FloatField(max_length=10.0)
-    dob = models.DateField()
-    state = models.CharField(max_length=20)
-    country = models.CharField(max_length=20)
-    gender = MultiSelectField(choices=GENDER_CHOICES)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    GPA = models.FloatField(max_length=10.0, default=0.0)
+    dob = models.DateField(null=True)
+    state = models.CharField(max_length=20, null=True)
+    country = models.CharField(max_length=20, null=True)
+    gender = MultiSelectField(choices=GENDER_CHOICES, null=True)
     category = MultiSelectField(choices=CATEGORY_CHOICES, null=True)
     qualification = MultiSelectField(choices=QUALIFICATION_CHOICES, null=True)
     domain = MultiSelectField(choices=DOMAIN_CHOICES, null=True)
