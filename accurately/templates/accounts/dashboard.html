@@ -5,6 +5,14 @@
   {% include 'partials/alerts.html' %}
 
 
+<section id="student">
+    <div class="container">
+        {% for s in student%}
+        <h4>Welcome student number: {{ s.app_id }} from {{ s.country }}</h4>
+        <p>Filters Applied: {{ s.domain }}</p>
+        {% endfor %}
+    </div>
+</section>
 
 <!-- Opportunities -->
 <section id="opportunities" class="py-4">
@@ -27,7 +35,7 @@
                       <i class="fas fa-map-marker-alt"></i> {{ x.country }}</p>
                   </div>
                   <hr>
-                  <p>Tags : {{ x.cataegories }}cscscs</p>
+                  <p>Tags : {{ x.cataegories }}</p>
                   <hr>
                   <div class="card-footer">
                       <a href="{{ x.link2 }}" target="_blank" class="btn btn-info btn-block">More Info</a>

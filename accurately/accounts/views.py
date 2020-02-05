@@ -1,10 +1,11 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import User, Opp
+from .models import User, Opp, Student
 from django.contrib import messages, auth
 from django.utils import timezone
 import requests
+import random
 
 
 def login(request):
@@ -70,7 +71,9 @@ def logout(request):
     return redirect('home')
 
 def dashboard(request):
-    url = 'http://192.168.43.79:5000/recommended?userid=15' 
+    random_id = random.randrange(1, 10, 1)
+    url = 'http://192.168.43.79:5000/recommended?userid=' + str(random_id)
+    student =  Student.objects.filter(app_id = random_id)
     data = requests.get(url).text.split(' ')
     data = data[:10]
     l = []
@@ -78,7 +81,9 @@ def dashboard(request):
         opp = Opp.objects.filter(Id  = int(ids))
         l.append(opp)
     context = {
-        'opps': l
+        'opps': l,
+        'student': student
     }
-    print(context['opps'])
+    print("student")
+    print(context['student'])
     return render(request, 'accounts/dashboard.html', context)

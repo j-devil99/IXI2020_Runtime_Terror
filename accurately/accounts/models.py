@@ -28,3 +28,13 @@ class Opp(models.Model):
     education = models.CharField(max_length=10000,null=True)
     country = models.CharField(max_length=2000, null=True)
     
+class Student(models.Model):
+    index = models.IntegerField(null=True)
+    app_id = models.IntegerField(primary_key=True)
+    title = models.CharField(max_length=4000)
+    cataegories =  models.CharField(max_length=10000, null=True)
+    domain = models.CharField(max_length=10000,null=True)
+    education = models.CharField(max_length=10000,null=True)
+    country = models.CharField(max_length=2000, null=True)
+
+    
