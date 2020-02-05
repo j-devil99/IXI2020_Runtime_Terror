@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'accurately.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'acc2',
+        'NAME': 'final',
         'USER': 'postgres',
         'PASSWORD': 'Miniking99',
         'HOST': 'localhost'
