@@ -4,12 +4,18 @@
   <!-- Alerts -->
   {% include 'partials/alerts.html' %}
 
+<style>
+    html, body{
+        background-image: url('https://i.pinimg.com/originals/32/11/e9/3211e9d656b191950b077d0f70655668.jpg');
+        background-attachment: fixed;
+    }
+</style>
 
 <section id="student">
-    <div class="container">
+    <div class="container text-white">
         {% for s in student%}
         <h4>Welcome student number: {{ s.app_id }} from {{ s.country }}</h4>
-        <p>Filters Applied: {{ s.domain }}</p>
+        <p>Filters Applied: {{ s.cataegories }}</p>
         {% endfor %}
     </div>
 </section>
