@@ -70,7 +70,7 @@ def logout(request):
     return redirect('home')
 
 def dashboard(request):
-    url = 'http://192.168.43.79:5000/recommended?userid=' + user.Id
+    url = 'http://192.168.43.79:5000/recommended?userid=15' 
     data = requests.get(url).text.split(' ')
     data = data[:10]
     l = []
@@ -80,4 +80,5 @@ def dashboard(request):
     context = {
         'opps': l
     }
+    print(context['opps'])
     return render(request, 'accounts/dashboard.html', context)
