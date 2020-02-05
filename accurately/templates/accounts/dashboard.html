@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Alerts -->
+  {% include 'partials/alerts.html' %}
+
+
+
+<!-- Opportunities -->
+<section id="opportunities" class="py-4">
+    <div class="container">
+      <div class="row">
+        {% if opps %}
+          {% for opp in opps %}
+            {% for x in opp%}
+            <!-- opp 1 -->
+            <div class="col-md-6 col-lg-4 mt-5">
+            <div class="card-deck">
+              <div class="card" style="background-color: #F1FAEE;">
+                <div class="card-header">
+                    <img class="img-fluid" src="{{ x.link }}" alt="">
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <h4 class="text-info">{{ x.title }}</h4>
+                    <p class="text-secondary">
+                      <i class="fas fa-map-marker-alt"></i> {{ x.country }}</p>
+                  </div>
+                  <hr>
+                  <p>Tags : {{ x.cataegories }}</p>
+                  <hr>
+                  <div class="card-footer">
+                      <a href="{{ x.link2 }}" target="_blank" class="btn btn-info btn-block">More Info</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+            {% endfor %}
+          {% endfor %}
+        {% else %}
+          <div class="col-md-12">
+            <p>Currently there are no Opportunities Available</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-md-12">
+          {% if pets.has_other_pages %}
+            <ul class="pagination">
+              {% if pets.has_previous %}
+                <li class="page-item">
+                  <a href="?page={{pets.previous_page_number}}" class="page-link">&laquo;</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link">&laquo;</a>
+                </li>
+              {% endif %}
+              {% for i in pets.paginator.page_range %}
+                {% if pets.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link">{{i}}</a>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+              {% if pets.has_next %}
+                <li class="page-item">
+                  <a href="?page={{pets.next_page_number}}" class="page-link">&raquo;</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link">&raquo;</a>
+                </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div> -->
+  </section>
+  {% endblock %}

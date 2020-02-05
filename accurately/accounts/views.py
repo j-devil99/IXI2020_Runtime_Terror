@@ -1,11 +1,28 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import User
+from .models import User, Opp
 from django.contrib import messages, auth
+from django.utils import timezone
+import requests
+
 
 def login(request):
-    return render(request, 'accounts/login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'You are now logged in')
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid credentials')
+            return redirect('login')
+    else:
+        return render(request, 'accounts/login.html')
 
 def signup(request):
   if request.method == 'POST':
@@ -29,7 +46,7 @@ def signup(request):
           return redirect('register')
         else:
           # Looks good
-          user = User.objects.create_user(username=username, password=password,email=email, first_name=first_name, last_name=last_name)
+          user = User.objects.create_user(username=username, password=password,email=email, first_name=first_name, last_name=last_name, last_login=timezone.now())
           # Login after register
           auth.login(request, user)
           messages.success(request, 'You are now logged in')
@@ -46,25 +63,21 @@ def signup(request):
   else:
     return render(request, 'accounts/signup.html')
 
-def login(request):
+def logout(request):
   if request.method == 'POST':
-    username = request.POST['username']
-    password = request.POST['password']
+    auth.logout(request)
+    messages.success(request, 'You are now logged out')
+    return redirect('home')
 
-    user = auth.authenticate(username=username, password=password)
-
-    if user is not None:
-      auth.login(request, user)
-      messages.success(request, 'You are now logged in')
-      return redirect('dashboard')
-    else:
-      messages.error(request, 'Invalid credentials')
-      return redirect('login')
-  else:
-    return render(request, 'accounts/login.html')
-
-# def logout(request):
-#   if request.method == 'POST':
-#     auth.logout(request)
-#     messages.success(request, 'You are now logged out')
-#     return redirect('home')
+def dashboard(request):
+    url = 'http://192.168.43.79:5000/recommended?userid=' + user.Id
+    data = requests.get(url).text.split(' ')
+    data = data[:10]
+    l = []
+    for ids in data:
+        opp = Opp.objects.filter(Id  = int(ids))
+        l.append(opp)
+    context = {
+        'opps': l
+    }
+    return render(request, 'accounts/dashboard.html', context)
